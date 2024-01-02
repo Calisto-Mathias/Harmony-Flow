@@ -65,10 +65,24 @@ export const login = async function (req, res) {
       // User has entered the right credentials. Therefore, we provide JWT Tokens in order to authenticate.
       delete User.Password;
       delete User._doc.Password;
-      const token = jwt.sign({ User }, process.env.JWT_ACCESS_SECRET, {
-        expiresIn: "10m",
+      const accessToken = jwt.sign(
+        { id: User.id },
+        process.env.JWT_ACCESS_SECRET,
+        {
+          expiresIn: "10m",
+        }
+      );
+
+      const refreshToken = jwt.sign(
+        { id: User.id },
+        process.env.JWT_REFRESH_SECRET,
+        { expiresIn: "1d" }
+      );
+      res.cookie("jwt", refreshToken, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
       });
-      res.status(200).json({ token });
+      res.status(200).json({ accessToken });
     }
   } catch (error) {
     console.log(`${error}`);

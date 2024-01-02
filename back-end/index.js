@@ -7,6 +7,7 @@ import express from "express";
 import { fileURLToPath } from "url";
 import path from "path";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 import authRouter from "./routes/auth.js";
 
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "30mb", extended: "true" }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: "true" }));
 app.use(morgan("common"));
+app.use(cookieParser());
 
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 // Server Configuration Ends Here
