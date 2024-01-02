@@ -89,3 +89,13 @@ export const login = async function (req, res) {
     res.status(500).json({ error });
   }
 };
+
+export const verifyToken = function (req, res) {
+  const accessToken = req.headers["authorization"].split(" ")[1];
+  const refreshToken = req.cookies.jwt;
+  if (!accessToken) {
+    res.status(401).json({ message: "No Access Token has been sent!" });
+  } else {
+    jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
+  }
+};
