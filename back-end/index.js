@@ -10,6 +10,14 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 import authRouter from "./routes/auth.js";
+import studentRouter from "./routes/student.js";
+import adminRouter from "./routes/admin.js";
+
+import {
+  verify,
+  verifyAdmin,
+  verifyStudent,
+} from "./middleware/tokenVerification.js";
 
 // Server Configurations
 const __filename = fileURLToPath(import.meta.url);
@@ -31,6 +39,8 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 // Routing Starts Here
 app.use("/auth", authRouter);
+app.use("/student", verify, verifyStudent, studentRouter);
+app.use("/admin", verify, verifyAdmin, adminRouter);
 // Routing Ends Here
 
 // Mongoose Setup
