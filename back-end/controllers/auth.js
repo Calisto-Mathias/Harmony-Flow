@@ -44,7 +44,7 @@ export const login = async (req, res) => {
   if (Role === "Student") {
     const student = await Student.findOne({ Roll_Number: ID });
     if (!student) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "Invalid Credentials!",
         description:
           "The DB does not contain such a user. You can try registering first using the /auth/register end-point!",
@@ -88,7 +88,7 @@ export const login = async (req, res) => {
     const employee = await Employee.findOne({ Staff_ID: ID });
 
     if (!employee) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "Invalid Credentials!",
         description:
           "The DB does not contain such a user. You can try registering first using the /auth/register end-point!",
