@@ -3,41 +3,45 @@ import Student from "../models/Student.js";
 import Employee from "../models/Employee.js";
 
 export const verify = async (req, res, next) => {
-  const accessToken = req.headers["authorization"].split(" ")[1];
+  let accessToken = null;
+  try {
+    accessToken = req.headers["authorization"].split(" ")[1];
+  } catch (error) {
+    return res.status(400).json({
+      message: "Invalid Auth Token",
+      description: "You have passed an Invalid Auth Token!",
+    });
+  }
 
   try {
     const { ID, Role } = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
-    console.log("verified");
     if (Role === "Student") {
       const student = await Student.findOne({ Roll_Number: ID });
       if (!student) {
-        res.status(400).json({
+        return res.status(400).json({
           message: "Invalid Credentials",
           description: "JSON Token Valid but User Not Found",
         });
-      } else {
-        req.body.student = student;
-        req.body.authorisation = "Student";
-        next();
       }
+      req.body.student = student;
+      req.body.authorisation = "Student";
+      next();
     } else {
       const employee = await Employee.findOne({ Staff_ID: ID });
       if (!employee) {
-        res.status(400).json({
+        return res.status(400).json({
           message: "Invalid Credentials",
           description: "JSON Token Valid but User Not Found",
         });
-      } else {
-        req.body.employee = employee;
-        req.body.authorisation = Role;
-        next();
       }
+      req.body.employee = employee;
+      req.body.authorisation = Role;
+      next();
     }
   } catch (error) {
-    res.status(401).json({
-      message: "Invalid Credentials!",
-      description:
-        "Token is invalid. Use the /refresh route in order to refresh your access Token",
+    return res.status(400).json({
+      message: "Invalid Credentials",
+      description: "User Token is Invalid",
     });
   }
 };

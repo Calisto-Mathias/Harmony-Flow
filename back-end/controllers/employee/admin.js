@@ -20,6 +20,18 @@ export const getTemplates = async (req, res) => {
   res.status(200).json({ templates });
 };
 
+export const getTemplateById = async (req, res) => {
+  const template = await FlowTemplate.findById(req.body.ID);
+  if (!template) {
+    return res.status(404).json({
+      message: "Invalid ID",
+      description: "Invalid Flow ID has been passed!",
+    });
+  }
+
+  return res.status(200).json({ template: template._doc });
+};
+
 export const editTemplate = async (req, res) => {
   const { Name, Approval_Flow, ID } = req.body;
   const template = await FlowTemplate.findByIdAndUpdate(

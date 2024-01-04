@@ -171,3 +171,7 @@ export const refresh = async (req, res) => {
     });
   }
 };
+
+export const logout = async (req, res) => {
+  // To be implemented.
+};

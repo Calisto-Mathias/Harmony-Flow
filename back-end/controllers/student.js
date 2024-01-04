@@ -1,6 +1,8 @@
 import Flow from "../models/Flow.js";
 import FlowTemplate from "../models/FlowTemplate.js";
 
+// Students are only allowed to create a Flow and get their created flows. They are in no circumstances allowed to modify their flows, and are not permitted to withdraw them either. For that reason, out of the CRUD operations, in this logic controller, we will only be implementing the CR operations (Create and Read)
+
 export const createFlow = async (req, res) => {
   const { TemplateID, Request } = req.body;
 
@@ -51,4 +53,16 @@ export const getFlows = async (req, res) => {
         "There is a faulty ID present in the list of flows. Contact Admin Immediately",
     });
   }
+};
+
+export const getFlowById = async (req, res) => {
+  const flow = await Flow.findById(req.body.ID);
+  if (!flow) {
+    return res.status(404).json({
+      message: "Invalid Flow Request",
+      description: "The Given Flow Does Not exist in the DB.",
+    });
+  }
+
+  return res.status(200).json({ flow: flow._doc });
 };
