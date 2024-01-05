@@ -42,6 +42,7 @@ export const login = async (req, res) => {
   const { ID, Password, Role } = req.body;
 
   if (Role === "Student") {
+    console.log("Entered");
     const student = await Student.findOne({ Roll_Number: ID });
     if (!student) {
       return res.status(400).json({

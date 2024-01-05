@@ -12,10 +12,12 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.js";
 import studentRouter from "./routes/student.js";
 import adminRouter from "./routes/admin.js";
+import employeeRouter from "./routes/admin.js";
 
 import {
   verify,
   verifyAdmin,
+  verifyEmployeeNA,
   verifyStudent,
 } from "./middleware/tokenVerification.js";
 
@@ -41,6 +43,7 @@ app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 app.use("/auth", authRouter);
 app.use("/student", verify, verifyStudent, studentRouter);
 app.use("/admin", verify, verifyAdmin, adminRouter);
+app.use("/employee", verify, verifyEmployeeNA, employeeRouter);
 // Routing Ends Here
 
 // Mongoose Setup

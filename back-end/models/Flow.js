@@ -6,7 +6,8 @@ const FlowSchema = mongoose.Schema(
     Request: { type: String, required: true },
     Status: { type: String, required: true },
     Current: { type: String, required: true },
-    Participants: { type: Array, required: true }, //This will consist of the User IDs
+    Participants: { type: Array, required: true }, //Array Structure will be according to the ERD Diagrams.
+    Archived: { type: Boolean, required: true },
   },
   { timestamps: true }
 );
