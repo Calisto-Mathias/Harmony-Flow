@@ -1,8 +1,9 @@
-import Flow from "../../models/Flow";
+import Flow from "../../models/Flow.js";
+import FlowTemplate from "../../models/FlowTemplate.js";
 
 export const getFlows = async (req, res) => {
   const flows = await Flow.find({
-    Current: req.employee.Role,
+    Current: req.body.employee.Role,
     Archived: false,
   });
   res.status(200).json({ flows });
@@ -10,8 +11,8 @@ export const getFlows = async (req, res) => {
 
 export const getFlowById = async (req, res) => {
   const flow = await Flow.findOne({
-    _id: req.ID,
-    Current: req.employee.Role,
+    _id: req.body.ID,
+    Current: req.body.employee.Role,
     Archived: false,
   });
   if (!flow) {
@@ -26,7 +27,11 @@ export const getFlowById = async (req, res) => {
 };
 
 export const approveFlow = async (req, res) => {
-  const flow = await Flow.findOne({ _id: req.ID, Current: req.employee.Role });
+  const flow = await Flow.findOne({
+    _id: req.body.ID,
+    Current: req.body.employee.Role,
+    Archived: false,
+  });
   if (!flow) {
     return res.status(400).json({
       message: "Invalid Request",
@@ -36,16 +41,30 @@ export const approveFlow = async (req, res) => {
   }
 
   flow.Participants = [
-    ...Participants,
-    [req.employee._id, "Approved", req.Comment],
+    ...flow.Participants,
+    [req.body.employee._id, "Approved", req.body.Comment],
   ];
 
+  const template = await FlowTemplate.findOne({ _id: flow.Template });
+
+  const index = template.Approval_Flow.indexOf(req.body.employee.Role);
+  if (index === template.Approval_Flow.length - 1) {
+    flow.Archived = true;
+  } else {
+    flow.Current = template.Approval_Flow[index + 1];
+  }
+
   await flow.save();
-  res.status(200).json({ message: `Approved by ${req.employee._id}`, flow });
+  res
+    .status(200)
+    .json({ message: `Approved by ${req.body.employee._id}`, flow });
 };
 
 export const rejectFlow = async (req, res) => {
-  const flow = await Flow.findOne({ _id: req.ID, Current: req.employee.Role });
+  const flow = await Flow.findOne({
+    _id: req.body.ID,
+    Current: req.body.employee.Role,
+  });
   if (!flow) {
     return res.status(400).json({
       message: "Invalid Request",
@@ -55,13 +74,15 @@ export const rejectFlow = async (req, res) => {
   }
 
   flow.Participants = [
-    ...Participants,
-    [req.employee._id, "Rejected", req.Comment],
+    ...flow.Participants,
+    [req.body.employee._id, "Rejected", req.body.Comment],
   ];
 
   flow.Archived = true;
 
   await flow.save();
 
-  res.status(200).json({ message: `Rejected By ${req.employee._id}`, flow });
+  res
+    .status(200)
+    .json({ message: `Rejected By ${req.body.employee._id}`, flow });
 };

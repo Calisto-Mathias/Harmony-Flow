@@ -174,5 +174,77 @@ export const refresh = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  // To be implemented.
+  let accessToken = null;
+  try {
+    accessToken = req.headers["authorization"].split(" ")[1];
+  } catch (error) {
+    return res.status(400).json({
+      message: "Invalid Auth Token!",
+      description: "Invalid Bearer Token!",
+    });
+  }
+
+  if (!accessToken) {
+    return res.status(400).json({
+      message: "Invalid Auth Token!",
+      description: "Invalid Bearer Token!",
+    });
+  }
+
+  try {
+    const { ID, Role } = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET);
+
+    if (Role === "Student") {
+      const student = await Student.findOne({ Roll_Number: ID });
+      if (!student) {
+        return res.status(400).json({
+          message: "Invalid User!",
+          description: "This Student does not exist in the DB!",
+        });
+      }
+
+      if (!student.refreshToken) {
+        return res.status(400).json({
+          message: "Invalid User!",
+          description: "This Student does not exist in the DB!",
+        });
+      }
+
+      delete student.refreshToken;
+      await student.save();
+
+      return res.status(200).json({
+        message: "Successfully Logged Out!",
+        description: "Return to the login page to login once again!",
+      });
+    } else {
+      const employee = await Employee.findOne({ Staff_ID: ID });
+      if (!employee) {
+        return res.status(400).json({
+          message: "Invalid User!",
+          description: "This Student does not exist in the DB!",
+        });
+      }
+
+      if (!employee.refreshToken) {
+        return res.status(400).json({
+          message: "Invalid User!",
+          description: "This Student does not exist in the DB!",
+        });
+      }
+
+      employee.refreshToken = "Logged_Out";
+      await employee.save();
+
+      return res.status(200).json({
+        message: "Successfully Logged Out!",
+        description: "Return to the login page to login once again!",
+      });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      message: "Invalid User Token",
+      description: "User may not be logged in!",
+    });
+  }
 };

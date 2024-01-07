@@ -46,5 +46,5 @@ export const deleteTemplate = async (req, res) => {
   const { ID } = req.body;
   const template = await FlowTemplate.findByIdAndDelete(ID);
 
-  res.status(200).json({ template });
+  res.status(200).json({ message: "Deleted!" });
 };

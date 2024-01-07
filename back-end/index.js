@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.js";
 import studentRouter from "./routes/student.js";
 import adminRouter from "./routes/admin.js";
-import employeeRouter from "./routes/admin.js";
+import employeeRouter from "./routes/employee.js";
 
 import {
   verify,
