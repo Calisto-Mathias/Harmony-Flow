@@ -1,0 +1,90 @@
+.login {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  .right {
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .rightContainer {
+      width: 80%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      gap: 30px;
+
+      .rightContainerHeading {
+        font-size: 3rem;
+        color: rgba(0, 0, 0, 0.75);
+      }
+
+      .rightContainerForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: column;
+        align-items: flex-start;
+
+        gap: 20px;
+        .textField {
+          padding: 20px 15px;
+          width: 400px;
+          outline: none;
+          border: 1.75px solid rgba(128, 128, 128, 0.5);
+          border-radius: 5px;
+        }
+        .rightContainerFormSubmit {
+          padding: 20px 15px;
+          width: 400px;
+          outline: none;
+          border: none;
+          border-radius: 5px;
+          background-color: #8651ff;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          color: white;
+        }
+        .rightContainerFormSelect {
+          padding: 20px 15px;
+          width: 400px;
+          outline: none;
+          border: 1.75px solid rgba(128, 128, 128, 0.5);
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+
+  .left {
+    width: 50%;
+    height: 100%;
+
+    background-image: url("https://c1.wallpaperflare.com/preview/718/955/631/background-abstract-pink-green.jpg");
+    background-size: cover;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .leftHeading {
+      font-size: 7rem;
+      color: white;
+    }
+  }
+}

@@ -61,3 +61,7 @@ export const getFlowById = async (req, res) => {
 
   return res.status(200).json({ flow: flow._doc });
 };
+export const getTemplates = async (req, res) => {
+  const templates = await FlowTemplate.find();
+  res.status(200).json({ templates });
+};
