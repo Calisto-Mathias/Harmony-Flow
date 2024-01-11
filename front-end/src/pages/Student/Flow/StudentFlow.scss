@@ -1,0 +1,64 @@
+.studentFlow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+
+  .studentFlowContainer {
+    border-radius: 5px;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+
+    width: 30%;
+    height: 50%;
+
+    border: 2px solid black;
+
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .studentFlowContainerForm {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      gap: 10px;
+
+      #studentFlowContainerSelector {
+        width: 100%;
+        padding: 15px;
+      }
+      #studentFlowContainerRequest {
+        width: 100%;
+        padding: 15px;
+
+        outline: none;
+      }
+
+      button {
+        padding: 15px;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        background-color: #4153af;
+        color: white;
+
+        transition: 0.5s;
+        cursor: pointer;
+        &:hover {
+          background-color: green;
+        }
+      }
+    }
+  }
+}

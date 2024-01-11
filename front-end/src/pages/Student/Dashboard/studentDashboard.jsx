@@ -20,7 +20,7 @@ const StudentDashboard = () => {
         </div>
         <div className="card">
           <img
-            src="https://png.pngtree.com/png-clipart/20230918/original/pngtree-icon-of-time-with-sand-flowing-in-an-hourglass-vector-art-png-image_12375381.png"
+            src="https://thumbs.dreamstime.com/b/hourglass-icon-isolated-white-background-simple-vector-logo-hourglass-icon-isolated-white-background-181302758.jpg"
             alt=""
           />
           <h2 className="heading">Status Enquiry</h2>
