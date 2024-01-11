@@ -35,6 +35,7 @@ app.use(bodyParser.json({ extended: "true" }));
 app.use(bodyParser.urlencoded({ extended: "true" }));
 app.use(morgan("common"));
 app.use(cookieParser());
+app.disable("etag");
 
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 // Server Configuration Ends Here

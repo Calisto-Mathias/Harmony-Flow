@@ -3,6 +3,7 @@ import Student from "../models/Student.js";
 import Employee from "../models/Employee.js";
 
 export const verify = async (req, res, next) => {
+  // console.log(req);
   let accessToken = null;
   try {
     accessToken = req.headers["authorization"].split(" ")[1];
@@ -25,6 +26,8 @@ export const verify = async (req, res, next) => {
       }
       req.body.student = student;
       req.body.authorisation = "Student";
+
+      console.log(req.body);
       next();
     } else {
       const employee = await Employee.findOne({ Staff_ID: ID });

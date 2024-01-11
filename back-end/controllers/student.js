@@ -38,6 +38,7 @@ export const createFlow = async (req, res) => {
 export const getFlows = async (req, res) => {
   const flows = [];
   for (let i = 0; i < req.body.student.Flows.length; i++) {
+    console.log(req.body.student);
     const flow = await Flow.findOne({ _id: req.body.student.Flows[i] });
     if (!flow) {
       return res

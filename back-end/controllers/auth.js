@@ -81,7 +81,7 @@ export const login = async (req, res) => {
       student.refreshToken = refreshToken;
       await student.save();
 
-      res.status(200).json({ accessToken });
+      res.status(200).json({ accessToken, Role: "Student" });
     } else {
       res.status(401).json({ message: "Invalid Credentials!" });
     }
@@ -97,7 +97,7 @@ export const login = async (req, res) => {
     }
     const verified = await bcrypt.compare(Password, employee.Password);
 
-    if (verified) {
+    if (verified && employee.Role === Role) {
       // Employee has been verified!
       const accessToken = jwt.sign(
         {
@@ -127,7 +127,7 @@ export const login = async (req, res) => {
         maxAge: 24 * 60 * 60 * 1000,
       });
 
-      res.status(200).json({ accessToken });
+      res.status(200).json({ accessToken, Role: employee.Role });
     } else {
       // Invalid User Credentials Have Been Entered
       res.status(401).json({ message: "Invalid User Credentials!" });
