@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import { useContext } from "react";
-import { useState } from "react";
+import React from "react";
 
+import "./EmployeeStatus.scss";
+
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import axiosInstance from "../../../api/axios";
 
-import "./StudentStatus.scss";
-
-const StudentStatus = () => {
+const EmployeeStatus = () => {
   const [flows, setFlows] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const { auth, setAuth } = useContext(AuthContext);
@@ -15,7 +14,7 @@ const StudentStatus = () => {
   useEffect(() => {
     try {
       const getData = async () => {
-        const response = await axiosInstance.get("/student/flows", {
+        const response = await axiosInstance.get("/employee/flows", {
           headers: {
             Authorization: `Bearer ${auth?.accessToken}`,
             withCredentials: true,
@@ -30,19 +29,17 @@ const StudentStatus = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [auth?.accessToken]);
+  }, [auth]);
 
   return (
-    <div className="studentStatus">
-      <div className="studentStatusContainer">
-        <table className="studentStatusContainerTable">
+    <div className="employeeStatus">
+      <div className="employeeStatusContainer">
+        <table className="employeeStatusContainerTable">
           <thead>
             <tr>
               <th>ID</th>
               <th>Request</th>
-              <th>Status</th>
-              <th>Current Step</th>
-              <th>Archived</th>
+              <th>Comments</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -53,13 +50,18 @@ const StudentStatus = () => {
                   <tr>
                     <td>{item?._id}</td>
                     <td>{item?.Request}</td>
-                    <td>{item?.Status}</td>
-                    <td>{item?.Current}</td>
-                    <td>{item?.Archived ? "Yes" : "No"}</td>
                     <td>
-                      <button className="studentStatusContainerView">
-                        View
-                      </button>
+                      <input
+                        type="text"
+                        id="employeeStatusContainerTableComments"
+                        placeholder="Enter Comment... (if any)"
+                      />
+                    </td>
+                    <td>
+                      <div className="employeeStatusContainerButtons">
+                        <button className="approve">Approve</button>
+                        <button className="reject">Reject</button>
+                      </div>
                     </td>
                   </tr>
                 );
@@ -71,4 +73,4 @@ const StudentStatus = () => {
   );
 };
 
-export default StudentStatus;
+export default EmployeeStatus;

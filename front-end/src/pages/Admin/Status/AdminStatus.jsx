@@ -1,21 +1,20 @@
-import React, { useEffect } from "react";
-import { useContext } from "react";
-import { useState } from "react";
+import React from "react";
+import { useState, useContext, useEffect } from "react";
 
 import { AuthContext } from "../../../context/AuthContext";
 import axiosInstance from "../../../api/axios";
 
-import "./StudentStatus.scss";
+import "./AdminStatus.scss";
 
-const StudentStatus = () => {
-  const [flows, setFlows] = useState([]);
+const AdminStatus = () => {
+  const [templates, setTemplates] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const { auth, setAuth } = useContext(AuthContext);
 
   useEffect(() => {
     try {
       const getData = async () => {
-        const response = await axiosInstance.get("/student/flows", {
+        const response = await axiosInstance.get("/admin/templates", {
           headers: {
             Authorization: `Bearer ${auth?.accessToken}`,
             withCredentials: true,
@@ -23,7 +22,7 @@ const StudentStatus = () => {
           },
         });
 
-        setFlows(response?.data?.flows);
+        setTemplates(response?.data?.templates);
         setLoaded(true);
       };
       getData();
@@ -33,32 +32,28 @@ const StudentStatus = () => {
   }, [auth?.accessToken]);
 
   return (
-    <div className="studentStatus">
-      <div className="studentStatusContainer">
-        <table className="studentStatusContainerTable">
+    <div className="adminStatus">
+      <div className="adminStatusContainer">
+        <table className="adminStatusContainerTable">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Request</th>
-              <th>Status</th>
-              <th>Current Step</th>
-              <th>Archived</th>
+              <th>Name</th>
+              <th>Approval Flow</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {loaded &&
-              flows?.map((item) => {
+              templates?.map((item) => {
                 return (
                   <tr>
                     <td>{item?._id}</td>
-                    <td>{item?.Request}</td>
-                    <td>{item?.Status}</td>
-                    <td>{item?.Current}</td>
-                    <td>{item?.Archived ? "Yes" : "No"}</td>
+                    <td>{item?.Name}</td>
+                    <td>{item?.Approval_Flow.join(" -> ")}</td>
                     <td>
-                      <button className="studentStatusContainerView">
-                        View
+                      <button className="adminStatusContainerView delete">
+                        Delete
                       </button>
                     </td>
                   </tr>
@@ -71,4 +66,4 @@ const StudentStatus = () => {
   );
 };
 
-export default StudentStatus;
+export default AdminStatus;

@@ -21,12 +21,13 @@ const StudentFlow = () => {
       JSON.stringify({ TemplateID: option, Request: request }),
       {
         headers: {
-          Authorization: `Bearer ${"<auth token here>"}`,
+          Authorization: `Bearer ${auth?.accessToken}`,
           withCredentials: true,
           "Content-Type": "application/json",
         },
       }
     );
+    useAuth({ ...auth, updates: auth.updates + 1 });
     console.log(response);
   };
 
@@ -39,7 +40,7 @@ const StudentFlow = () => {
       try {
         const response = await axiosInstance.get("/student/templates", {
           headers: {
-            Authorization: `Bearer ${"<auth token here>"}`,
+            Authorization: `Bearer ${auth?.accessToken}`,
             withCredentials: true,
             "Content-Type": "application/json",
           },
@@ -59,7 +60,7 @@ const StudentFlow = () => {
     };
 
     getData();
-  }, []);
+  }, [auth?.accessToken]);
 
   return (
     <div className="studentFlow">

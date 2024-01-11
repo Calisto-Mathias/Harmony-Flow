@@ -5,6 +5,8 @@ import "./Login.scss";
 import { AuthContext } from "../../context/AuthContext";
 import axiosInstance from "../../api/axios";
 
+import { Link, useNavigate, useLocation } from "react-router-dom";
+
 const Login = () => {
   const { auth, setAuth } = useContext(AuthContext);
 
@@ -14,6 +16,10 @@ const Login = () => {
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,14 +32,28 @@ const Login = () => {
         { headers: { "Content-Type": "application/json" } }
       );
 
-      setAuth(response?.data?.accessToken);
       setErrMsg("");
       setPassword("");
       setRoll("");
-      setSuccess(true);
 
-      const accessToken = response?.data?.accessToken;
-      setAuth({ accessToken });
+      console.log(response?.data);
+      setAuth({
+        accessToken: response?.data?.accessToken,
+        Role: response?.data?.Role,
+      });
+
+      navigate(
+        response?.data?.Role === "Student"
+          ? "/student/dashboard"
+          : response?.data?.Role === "Admin"
+          ? "/admin/dashboard"
+          : response?.data?.Role
+          ? "/employee/dashboard"
+          : "/unauthorized",
+        { replace: true }
+      );
+
+      // setSuccess(true);
     } catch (error) {
       console.log(error);
       setErrMsg(
