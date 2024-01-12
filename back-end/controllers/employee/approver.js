@@ -50,6 +50,7 @@ export const approveFlow = async (req, res) => {
   const index = template.Approval_Flow.indexOf(req.body.employee.Role);
   if (index === template.Approval_Flow.length - 1) {
     flow.Archived = true;
+    flow.Status = "Finished";
   } else {
     flow.Current = template.Approval_Flow[index + 1];
   }
@@ -79,6 +80,7 @@ export const rejectFlow = async (req, res) => {
   ];
 
   flow.Archived = true;
+  flow.Status = "Rejected";
 
   await flow.save();
 

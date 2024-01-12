@@ -2,7 +2,17 @@ import React from "react";
 
 import "./studentDashboard.scss";
 
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
+
 const StudentDashboard = () => {
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    setAuth({});
+    navigate("/login");
+  };
+
   return (
     <div className="studentDashboard">
       <div className="studentDashboardContainer">
@@ -16,7 +26,12 @@ const StudentDashboard = () => {
             Raise a Service Request to get your task completed as soon as
             possible. Do it now on our digital platform IRIS!
           </p>
-          <div className="button">Raise Now!</div>
+          <Link
+            to={"/student/flow"}
+            className="studentDashboardContainerLinker"
+          >
+            <div className="button">Raise Now!</div>
+          </Link>
         </div>
         <div className="card">
           <img
@@ -28,7 +43,12 @@ const StudentDashboard = () => {
             Check the status of your Service Requests to get your task completed
             as soon as possible. Do it now on our digital platform IRIS!
           </p>
-          <div className="button">Check Now!</div>
+          <Link
+            to={"/student/status"}
+            className="studentDashboardContainerLinker"
+          >
+            <div className="button">Check Now!</div>
+          </Link>
         </div>
         <div className="card">
           <img
@@ -40,7 +60,9 @@ const StudentDashboard = () => {
             Done with all your tasks? Logout for increased security. Always
             remember to log out of public computers and devices as well.
           </p>
-          <div className="button">Logout Now!</div>
+          <div className="button" onClick={handleLogout}>
+            Logout Now!
+          </div>
         </div>
       </div>
     </div>

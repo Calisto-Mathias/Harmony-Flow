@@ -8,6 +8,7 @@ const RequireStudent = () => {
 
   const location = useLocation();
 
+  console.log(auth);
   return auth?.Role === "Student" ? (
     <Outlet />
   ) : (

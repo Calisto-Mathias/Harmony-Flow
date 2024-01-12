@@ -30,47 +30,46 @@ function App() {
         ></Route>
 
         {/* protected routes */}
-        <Route element={<RequireAuth></RequireAuth>}>
-          <Route element={<RequireStudent></RequireStudent>}>
-            <Route
-              path="/student/dashboard"
-              element={<StudentDashboard></StudentDashboard>}
-            ></Route>
-            <Route
-              path="/student/flow"
-              element={<StudentFlow></StudentFlow>}
-            ></Route>
-            <Route
-              path="/student/status"
-              element={<StudentStatus></StudentStatus>}
-            ></Route>
-          </Route>
 
-          <Route element={<RequireEmployee></RequireEmployee>}>
-            <Route
-              path="/employee/dashboard"
-              element={<EmployeeDashboard></EmployeeDashboard>}
-            ></Route>
-            <Route
-              path="/employee/status"
-              element={<EmployeeStatus></EmployeeStatus>}
-            ></Route>
-          </Route>
+        <Route element={<RequireStudent></RequireStudent>}>
+          <Route
+            path="/student/dashboard"
+            element={<StudentDashboard></StudentDashboard>}
+          ></Route>
+          <Route
+            path="/student/flow"
+            element={<StudentFlow></StudentFlow>}
+          ></Route>
+          <Route
+            path="/student/status"
+            element={<StudentStatus></StudentStatus>}
+          ></Route>
+        </Route>
 
-          <Route element={<RequireAdmin></RequireAdmin>}>
-            <Route
-              path="/admin/dashboard"
-              element={<AdminDashboard></AdminDashboard>}
-            ></Route>
-            <Route
-              path="/admin/create"
-              element={<AdminTemplate></AdminTemplate>}
-            ></Route>
-            <Route
-              path="/admin/status"
-              element={<AdminStatus></AdminStatus>}
-            ></Route>
-          </Route>
+        <Route element={<RequireEmployee></RequireEmployee>}>
+          <Route
+            path="/employee/dashboard"
+            element={<EmployeeDashboard></EmployeeDashboard>}
+          ></Route>
+          <Route
+            path="/employee/status"
+            element={<EmployeeStatus></EmployeeStatus>}
+          ></Route>
+        </Route>
+
+        <Route element={<RequireAdmin></RequireAdmin>}>
+          <Route
+            path="/admin/dashboard"
+            element={<AdminDashboard></AdminDashboard>}
+          ></Route>
+          <Route
+            path="/admin/create"
+            element={<AdminTemplate></AdminTemplate>}
+          ></Route>
+          <Route
+            path="/admin/status"
+            element={<AdminStatus></AdminStatus>}
+          ></Route>
         </Route>
       </Routes>
     </div>

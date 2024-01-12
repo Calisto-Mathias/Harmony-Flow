@@ -4,6 +4,7 @@ import "./Login.scss";
 
 import { AuthContext } from "../../context/AuthContext";
 import axiosInstance from "../../api/axios";
+import { roles } from "../../context/roles";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -108,11 +109,14 @@ const Login = () => {
                 setRole(e.target.value);
               }}
             >
-              <option value="">Select an Option</option>
-              <option value="Student">Student</option>
+              {roles.map((item) => {
+                return (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                );
+              })}
               <option value="Admin">Admin</option>
-              <option value="MIS Officer">MIS Officer</option>
-              <option value="Academic Office">Academic Office</option>
             </select>
             <button className="rightContainerFormSubmit" onClick={handleSubmit}>
               Login

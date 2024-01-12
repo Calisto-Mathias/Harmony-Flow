@@ -2,7 +2,18 @@ import React from "react";
 
 import "./AdminDashboard.scss";
 
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+
 const AdminDashboard = () => {
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setAuth({});
+    navigate("/login");
+  };
+
   return (
     <div className="adminDashboard">
       <div className="adminDashboardContainer">
@@ -16,7 +27,9 @@ const AdminDashboard = () => {
             Raise a Template to get students to complete tasks as soon as
             possible. Do it now on our digital platform IRIS!
           </p>
-          <div className="button">Raise Now!</div>
+          <Link to={"/admin/create"} className="adminDashboardContainerLinker">
+            <div className="button">Raise Now!</div>
+          </Link>
         </div>
         <div className="card">
           <img
@@ -28,7 +41,9 @@ const AdminDashboard = () => {
             Check the status of your Templates to get your task completed as
             soon as possible. Do it now on our digital platform IRIS!
           </p>
-          <div className="button">Check Now!</div>
+          <Link to={"/admin/status"} className="adminDashboardContainerLinker">
+            <div className="button">Check Now!</div>
+          </Link>
         </div>
         <div className="card">
           <img
@@ -40,7 +55,9 @@ const AdminDashboard = () => {
             Done with all your tasks? Logout for increased security. Always
             remember to log out of public computers and devices as well.
           </p>
-          <div className="button">Logout Now!</div>
+          <div className="button" onClick={handleLogout}>
+            Logout Now!
+          </div>
         </div>
       </div>
     </div>

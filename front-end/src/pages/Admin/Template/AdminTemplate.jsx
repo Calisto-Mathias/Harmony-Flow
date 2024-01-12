@@ -6,10 +6,9 @@ import "./AdminTemplate.scss";
 
 import axiosInstance from "../../../api/axios";
 import { AuthContext } from "../../../context/AuthContext";
+import { roles } from "../../../context/roles";
 
 const AdminTemplate = () => {
-  const roles = ["Student", "Academic Office", "MIS Officer", "Professor"]; // can be modified to add more roles
-
   const [number, setNumber] = useState(1);
   const [name, setName] = useState("");
   const [participants, setParticipants] = useState(

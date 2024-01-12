@@ -27,7 +27,7 @@ const StudentFlow = () => {
         },
       }
     );
-    useAuth({ ...auth, updates: auth.updates + 1 });
+    setAuth({ ...auth, updates: auth.updates + 1 });
     console.log(response);
   };
 
@@ -79,7 +79,7 @@ const StudentFlow = () => {
                   return item.Approval_Flow.join(" => ") === e.target.value;
                 });
                 console.log(element);
-                setOption(element._id);
+                setOption(element[0]._id);
               }}
             >
               {templates?.map((ele) => {
