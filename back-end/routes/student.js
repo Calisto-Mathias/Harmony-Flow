@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/create", createFlow);
 router.get("/flows", getFlows);
-router.get("/flowById", getFlowById);
+router.post("/flowById", getFlowById);
 router.get("/templates", getTemplates);
 
 export default router;
