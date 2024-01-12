@@ -62,6 +62,7 @@ export const approveFlow = async (req, res) => {
 };
 
 export const rejectFlow = async (req, res) => {
+  console.log(req.body);
   const flow = await Flow.findOne({
     _id: req.body.ID,
     Current: req.body.employee.Role,

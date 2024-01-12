@@ -11,6 +11,30 @@ const AdminStatus = () => {
   const [loaded, setLoaded] = useState(false);
   const { auth, setAuth } = useContext(AuthContext);
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await axiosInstance.post(
+        "/admin/delete",
+        JSON.stringify({ ID: id }),
+        {
+          headers: {
+            Authorization: `Bearer ${auth.accessToken}`,
+            "Content-Type": "application/json",
+            withCredentials: true,
+          },
+        }
+      );
+      console.log(response);
+      setTemplates(
+        templates.filter((ele, index, array) => {
+          return ele._id !== id;
+        })
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     try {
       const getData = async () => {
@@ -52,7 +76,12 @@ const AdminStatus = () => {
                     <td>{item?.Name}</td>
                     <td>{item?.Approval_Flow.join(" -> ")}</td>
                     <td>
-                      <button className="adminStatusContainerView delete">
+                      <button
+                        className="adminStatusContainerView delete"
+                        onClick={() => {
+                          handleDelete(item?._id);
+                        }}
+                      >
                         Delete
                       </button>
                     </td>

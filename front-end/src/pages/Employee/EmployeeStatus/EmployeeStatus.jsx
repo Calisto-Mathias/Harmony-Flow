@@ -39,6 +39,31 @@ const EmployeeStatus = () => {
     }
   };
 
+  const reject = async (index, id) => {
+    try {
+      const response = await axiosInstance.patch(
+        "/employee/reject",
+        JSON.stringify({ ID: id, Comment: comments[index] }),
+        {
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${auth.accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const flowsCopy = flows.filter((ele, i, array) => {
+        return index !== i;
+      });
+      setFlows(flowsCopy);
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     try {
       const getData = async () => {
@@ -104,7 +129,7 @@ const EmployeeStatus = () => {
                         <button
                           className="reject"
                           onClick={() => {
-                            reject(index);
+                            reject(index, item?._id);
                           }}
                         >
                           Reject

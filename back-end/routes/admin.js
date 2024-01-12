@@ -11,8 +11,8 @@ const router = express.Router();
 
 router.post("/create", createTemplate);
 router.get("/templates", getTemplates);
-router.get("/templatesById", getTemplateById);
+router.post("/templatesById", getTemplateById);
 router.put("/edit", editTemplate);
-router.delete("/delete", deleteTemplate);
+router.post("/delete", deleteTemplate);
 
 export default router;
