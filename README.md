@@ -85,6 +85,27 @@ This section will be broken down based on the criticality of each feature. Each 
 
 ## Documentation
 
+This section consists of the documentation of all the implemented back-ends as well as a quick summarization of their use-cases. The aim of this documentation is for a user to implement this API in his own projects as well (supposedly, for a better front end XD). Having said that, it will not be formally typed and will be a more casual representation.
+
+### API End-Points:
+
+The API endpoints can be broadly classified into 4 major categories. All of these end-points are secured via Authentication Headers which require a JWT Bearer Token. If incase one isn't there or has expired, it may be refreshed through `/auth/refresh` end-point upon passing a valid HTTPOnly Cookie consisting of the refresh Token.
+
+1. Admin Endpoints:
+
+   1. `/admin/create` can be used for creating new templates for future requests that will be raised by the end-user (in this case, the Student). It is a `POST` request that must contain a JSON body containing two properties `Name` and `Approval_Flow`. The `Approval Flow` is an array of strings containing the participants (excluding the Student) in the order of approval required. Due to this form of implementation, it accounts for a variable size of participants in any flow template which greatly increases extensability of any sort of flow request - that is, it can accomodate direct requests (bonus task) as well as multiple participant-based requests.
+   2. `/admin/templates` can be used for requesting the information about all the templates that have been created by the admin beforehand.
+   3. `/admin/templatesById` can be used for retrieving a template by a specific ID selector. It is done through the `POST` HTTP request consisting of a JSON Body that must contain an `ID` property with a valid ObjectID of MongoDB. It returns the template in the response body.
+   4. `/admin/edit` can be used in order to edit an existing template without having to explicitly delete it and create a new one. It automatically reflects on all the flows using the template as well. It is done using the `PUT` HTTP request and hence needs a JSON request body consisting of `ID, Name, Approval_Flow` request properties. It returns a status code upon successful editing else returns an error status code.
+   5. `/admin/delete` is used to delete any template solely using its template ID. According to the MDN documentation for the HTTP status codes, the `DELETE` HTTP method cannot consists of a request body. As a result, even this end-point is implemented using the `POST` request. It requires a JSON body containing the `ID` property consisting of a valid ObjectID.
+
+2. Student Endpoints:
+
+   1. `/student/create` is used for the Student to create a new flow. It is a `POST` request implemented under the MDN HTTP specification. It must contain a `TemplateID, Request` properties in the JSON Request body. _Upcoming versions will have a description implemented as well_. Upon creation, it directly makes the entry in the MongoDB database, and the approval flow is initiated instantaneously.
+   2. `/student/flows` is used in order to request information regarding all the flows that the student has open. As this route is protected through the JWT access token, each user may only access his or her posts. Due to this, multiple users may simultaneously the service as expected.
+   3. `/student/flowById` returns a specific flow as per the requested ObjectID. The request JSON body must contain a `ID` property which contains a valid ObjectID. This request is implemented using the `POST` request.
+   4. `/student/templates` is just an endpoint that functions the same as `/admin/templates`. It returns the same thing but prevents unauthorization errors due to access token mismatch. As such, an endpoint was put in to permit easy access for the student's client browser to request the resource with the same access Token rather than adding unnecessary logic code.
+
 ## References
 
 MongoDB and Mongoose: https://mongoosejs.com
