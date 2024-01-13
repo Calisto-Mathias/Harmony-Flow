@@ -4,11 +4,28 @@ import "./EmployeeDashboard.scss";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
+import axiosInstance from "../../api/axios";
 
 const EmployeeDashboard = () => {
   const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      const response = await axiosInstance.patch(
+        "/auth/logout",
+        JSON.stringify({}),
+        {
+          headers: {
+            Authorization: `Bearer ${auth?.accessToken}`,
+            "Content-Type": "application/json",
+            withCredentials: true,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
     setAuth({});
     navigate("/login");
   };

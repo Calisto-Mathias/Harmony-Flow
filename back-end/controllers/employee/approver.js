@@ -42,7 +42,12 @@ export const approveFlow = async (req, res) => {
 
   flow.Participants = [
     ...flow.Participants,
-    [req.body.employee._id, "Approved", req.body.Comment],
+    [
+      req.body.employee._id,
+      "Approved",
+      req.body.Comment,
+      req.body.employee.Role,
+    ],
   ];
 
   const template = await FlowTemplate.findOne({ _id: flow.Template });
@@ -77,7 +82,12 @@ export const rejectFlow = async (req, res) => {
 
   flow.Participants = [
     ...flow.Participants,
-    [req.body.employee._id, "Rejected", req.body.Comment],
+    [
+      req.body.employee._id,
+      "Rejected",
+      req.body.Comment,
+      req.body.employee.Role,
+    ],
   ];
 
   flow.Archived = true;

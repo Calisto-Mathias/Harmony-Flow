@@ -50,11 +50,72 @@
         tr {
           td {
             button {
+              padding: 10px 20px;
               cursor: pointer;
+
+              border: none;
+              outline: none;
+
+              background: #1976d2;
+              color: white;
+
+              border-radius: 5px;
             }
           }
         }
       }
+    }
+  }
+}
+.studentModal {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+
+  .studentModalContainer {
+    border-radius: 5px;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    padding: 20px;
+    border: 2px solid black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 10px;
+
+    .studentModalContainerParticipants {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+
+      border: none;
+      outline: none;
+
+      background-color: black;
+      color: white;
+
+      border-radius: 5px;
+
+      cursor: pointer;
     }
   }
 }

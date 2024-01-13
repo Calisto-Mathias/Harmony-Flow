@@ -210,7 +210,7 @@ export const logout = async (req, res) => {
         });
       }
 
-      delete student.refreshToken;
+      student.refreshToken = "Logged_Out";
       await student.save();
 
       return res.status(200).json({

@@ -20,7 +20,9 @@ export const createFlow = async (req, res) => {
     Request: Request,
     Status: "Processing",
     Current: template.Approval_Flow[0],
-    Participants: [[req.body.student._id, "Approved", ""]],
+    Participants: [
+      [req.body.student._id, "Created", "Created by Student", "Student"],
+    ],
     Archived: false,
   });
 

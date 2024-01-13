@@ -4,12 +4,29 @@ import "./AdminDashboard.scss";
 
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import axiosInstance from "../../api/axios";
 
 const AdminDashboard = () => {
   const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      const response = await axiosInstance.patch(
+        "/auth/logout",
+        JSON.stringify({}),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth?.accessToken}`,
+            withCredentials: true,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
     setAuth({});
     navigate("/login");
   };

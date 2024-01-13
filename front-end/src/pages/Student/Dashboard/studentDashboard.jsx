@@ -4,11 +4,28 @@ import "./studentDashboard.scss";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
+import axiosInstance from "../../../api/axios";
 
 const StudentDashboard = () => {
   const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      const response = await axiosInstance.patch(
+        "/auth/logout",
+        JSON.stringify({}),
+        {
+          headers: {
+            withCredentials: true,
+            Authorization: `Bearer ${auth?.accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
     setAuth({});
     navigate("/login");
   };

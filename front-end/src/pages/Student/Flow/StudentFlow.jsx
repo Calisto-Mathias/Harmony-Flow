@@ -73,7 +73,6 @@ const StudentFlow = () => {
             <select
               name="studentFlowContainerSelector"
               id="studentFlowContainerSelector"
-              value={option}
               onChange={(e) => {
                 const element = templates.filter((item) => {
                   return item.Approval_Flow.join(" => ") === e.target.value;
