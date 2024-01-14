@@ -122,10 +122,7 @@ const Login = () => {
               Login
             </button>
           </form>
-          <p>
-            New User?&nbsp;
-            <span className="rightContainerRegisterLink">Signup</span>
-          </p>
+
           {errMsg ? (
             <p style={{ textAlign: "center", color: "red" }}>{errMsg}</p>
           ) : (

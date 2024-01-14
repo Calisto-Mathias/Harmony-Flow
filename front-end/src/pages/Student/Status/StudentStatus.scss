@@ -29,7 +29,8 @@
 
       thead {
         tr {
-          background-color: #009879;
+          // background-color: #009879;
+          background-color: black;
           color: white;
           text-align: center;
           font-weight: bold;
@@ -44,7 +45,8 @@
           background-color: #f3f3f3;
         }
         tr:last-of-type {
-          border-bottom: 2px solid #009879;
+          // border-bottom: 2px solid #009879;
+          border-bottom: 2px solid black;
         }
 
         tr {

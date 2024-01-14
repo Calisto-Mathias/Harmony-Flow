@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { AuthContext } from "../../../context/AuthContext";
 import axiosInstance from "../../../api/axios";
+import Navbar from "../Navbar/Navbar";
 
 import "./StudentStatus.scss";
 
@@ -37,6 +38,7 @@ const StudentStatus = () => {
 
   return (
     <>
+      <Navbar></Navbar>
       {modal && (
         <div className="studentModal">
           <div className="studentModalContainer">

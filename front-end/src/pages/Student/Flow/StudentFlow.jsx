@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import axiosInstance from "../../../api/axios";
 import { AuthContext } from "../../../context/AuthContext";
+import Navbar from "../Navbar/Navbar";
 
 import "./StudentFlow.scss";
 
@@ -63,55 +64,58 @@ const StudentFlow = () => {
   }, [auth?.accessToken]);
 
   return (
-    <div className="studentFlow">
-      <div className="studentFlowContainer">
-        <h1 className="studentFlowContainerHeading">Create A Flow</h1>
-        <p>Create a request by selecting one of the Flow Approvals Below!</p>
-        <form action="" className="studentFlowContainerForm">
-          <label htmlFor="studentFlowContainerSelector">Select a Flow:</label>
-          {loaded && (
-            <select
-              name="studentFlowContainerSelector"
-              id="studentFlowContainerSelector"
+    <>
+      <Navbar></Navbar>
+      <div className="studentFlow">
+        <div className="studentFlowContainer">
+          <h1 className="studentFlowContainerHeading">Create A Flow</h1>
+          <p>Create a request by selecting one of the Flow Approvals Below!</p>
+          <form action="" className="studentFlowContainerForm">
+            <label htmlFor="studentFlowContainerSelector">Select a Flow:</label>
+            {loaded && (
+              <select
+                name="studentFlowContainerSelector"
+                id="studentFlowContainerSelector"
+                onChange={(e) => {
+                  const element = templates.filter((item) => {
+                    return item.Approval_Flow.join(" => ") === e.target.value;
+                  });
+                  console.log(element);
+                  setOption(element[0]._id);
+                }}
+              >
+                {templates?.map((ele) => {
+                  const { Approval_Flow } = ele;
+                  const Approval_Flow_String = Approval_Flow.join(" => ");
+                  return (
+                    <option
+                      value={Approval_Flow_String}
+                      key={Approval_Flow_String}
+                    >
+                      {Approval_Flow_String}
+                    </option>
+                  );
+                })}
+              </select>
+            )}
+            <label htmlFor="studentFlowContainerRequest">Request:</label>
+            <input
+              type="text"
+              name="studentFlowContainerRequest"
+              id="studentFlowContainerRequest"
+              value={request}
+              placeholder="Enter a Request..."
               onChange={(e) => {
-                const element = templates.filter((item) => {
-                  return item.Approval_Flow.join(" => ") === e.target.value;
-                });
-                console.log(element);
-                setOption(element[0]._id);
+                setRequest(e.target.value);
               }}
-            >
-              {templates?.map((ele) => {
-                const { Approval_Flow } = ele;
-                const Approval_Flow_String = Approval_Flow.join(" => ");
-                return (
-                  <option
-                    value={Approval_Flow_String}
-                    key={Approval_Flow_String}
-                  >
-                    {Approval_Flow_String}
-                  </option>
-                );
-              })}
-            </select>
-          )}
-          <label htmlFor="studentFlowContainerRequest">Request:</label>
-          <input
-            type="text"
-            name="studentFlowContainerRequest"
-            id="studentFlowContainerRequest"
-            value={request}
-            placeholder="Enter a Request..."
-            onChange={(e) => {
-              setRequest(e.target.value);
-            }}
-          />
-          <button type="submit" onClick={handleSubmit}>
-            Submit Request
-          </button>
-        </form>
+            />
+            <button type="submit" onClick={handleSubmit}>
+              Submit Request
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
