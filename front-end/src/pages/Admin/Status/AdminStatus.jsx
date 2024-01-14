@@ -4,6 +4,7 @@ import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import axiosInstance from "../../../api/axios";
 import { roles } from "../../../context/roles";
+import Navbar from "../Navbar/Navbar";
 
 import "./AdminStatus.scss";
 
@@ -98,6 +99,7 @@ const AdminStatus = () => {
 
   return (
     <>
+      <Navbar></Navbar>
       {modal && (
         <div className="adminModal">
           <div className="adminModalContainer">

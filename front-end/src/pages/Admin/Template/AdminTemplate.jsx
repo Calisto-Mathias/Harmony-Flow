@@ -7,6 +7,7 @@ import "./AdminTemplate.scss";
 import axiosInstance from "../../../api/axios";
 import { AuthContext } from "../../../context/AuthContext";
 import { roles } from "../../../context/roles";
+import Navbar from "../Navbar/Navbar";
 
 const AdminTemplate = () => {
   const [number, setNumber] = useState(1);
@@ -40,67 +41,70 @@ const AdminTemplate = () => {
   };
 
   return (
-    <div className="adminTemplate">
-      <div className="adminTemplateContainer">
-        <h1 className="adminTemplateContainerHeading">Create a Template!</h1>
-        <p className="description">Create a list of roles:</p>
-        <form action="" className="adminTemplateContainerForm">
-          <label htmlFor="adminTemplateContainerName">Name of Template</label>
-          <input
-            type="text"
-            name="adminTemplateContainerName"
-            id="adminTemplateContainerName"
-            placeholder="Enter Name!"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-          <label htmlFor="adminTemplateContainerFormNumber">
-            Number of Participants
-          </label>
-          <input
-            type="number"
-            name="adminTemplateContainerFormNumber"
-            id="adminTemplateContainerFormNumber"
-            value={number}
-            onChange={(e) => {
-              setNumber(e.target.value);
-            }}
-          />
-          {[...new Array(Number(number))].map((ele, index) => {
-            return (
-              <>
-                <label htmlFor={`adminTemplateContainerFormSeletor${index}`}>
-                  Participant {index + 1}
-                </label>
-                <select
-                  key={`adminTemplateContainerFormSelector${index}`}
-                  name={`adminTemplateContainerFormSelector${index}`}
-                  id={`adminTemplateContainerFormSelector${index}`}
-                  onChange={(e) => {
-                    const participantsNew = [...participants];
-                    participantsNew[index] = e.target.value;
-                    setParticipants(participantsNew);
-                  }}
-                >
-                  {roles.map((item) => {
-                    return (
-                      <option value={item} key={item}>
-                        {item}
-                      </option>
-                    );
-                  })}
-                </select>
-              </>
-            );
-          })}
-          <button type="submit" onClick={handleSubmit}>
-            Create!
-          </button>
-        </form>
+    <>
+      <Navbar></Navbar>
+      <div className="adminTemplate">
+        <div className="adminTemplateContainer">
+          <h1 className="adminTemplateContainerHeading">Create a Template!</h1>
+          <p className="description">Create a list of roles:</p>
+          <form action="" className="adminTemplateContainerForm">
+            <label htmlFor="adminTemplateContainerName">Name of Template</label>
+            <input
+              type="text"
+              name="adminTemplateContainerName"
+              id="adminTemplateContainerName"
+              placeholder="Enter Name!"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+            <label htmlFor="adminTemplateContainerFormNumber">
+              Number of Participants
+            </label>
+            <input
+              type="number"
+              name="adminTemplateContainerFormNumber"
+              id="adminTemplateContainerFormNumber"
+              value={number}
+              onChange={(e) => {
+                setNumber(e.target.value);
+              }}
+            />
+            {[...new Array(Number(number))].map((ele, index) => {
+              return (
+                <>
+                  <label htmlFor={`adminTemplateContainerFormSeletor${index}`}>
+                    Participant {index + 1}
+                  </label>
+                  <select
+                    key={`adminTemplateContainerFormSelector${index}`}
+                    name={`adminTemplateContainerFormSelector${index}`}
+                    id={`adminTemplateContainerFormSelector${index}`}
+                    onChange={(e) => {
+                      const participantsNew = [...participants];
+                      participantsNew[index] = e.target.value;
+                      setParticipants(participantsNew);
+                    }}
+                  >
+                    {roles.map((item) => {
+                      return (
+                        <option value={item} key={item}>
+                          {item}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </>
+              );
+            })}
+            <button type="submit" onClick={handleSubmit}>
+              Create!
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

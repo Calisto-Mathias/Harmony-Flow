@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import StudentDashboard from "./pages/Student/Dashboard/studentDashboard";
 import StudentFlow from "./pages/Student/Flow/StudentFlow";
-import StudentStatus from "./pages/Student/Status/studentStatus";
+import StudentStatus from "./pages/Student/Status/StudentStatus";
 import AdminDashboard from "./pages/Admin/adminDashboard";
 import AdminTemplate from "./pages/Admin/Template/AdminTemplate";
 import AdminStatus from "./pages/Admin/Status/AdminStatus";
