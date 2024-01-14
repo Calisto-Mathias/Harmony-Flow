@@ -8,6 +8,7 @@ import axiosInstance from "../../../api/axios";
 import { AuthContext } from "../../../context/AuthContext";
 import { roles } from "../../../context/roles";
 import Navbar from "../Navbar/Navbar";
+import Footer from "../../Employee/Footer/Footer";
 
 const AdminTemplate = () => {
   const [number, setNumber] = useState(1);
@@ -17,6 +18,7 @@ const AdminTemplate = () => {
       return "Student";
     })
   );
+
   const { auth, setAuth } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
@@ -111,6 +113,7 @@ const AdminTemplate = () => {
           </form>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };

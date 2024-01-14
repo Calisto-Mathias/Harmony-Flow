@@ -6,6 +6,7 @@ import axiosInstance from "../../../api/axios";
 import { roles } from "../../../context/roles";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../../Employee/Footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 import "./AdminStatus.scss";
 
@@ -24,6 +25,7 @@ const AdminStatus = () => {
       return "Student";
     })
   );
+  const navigate = useNavigate();
 
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -50,7 +52,8 @@ const AdminStatus = () => {
           },
         }
       );
-      console.log(response);
+      setModal(false);
+      navigate("/admin/dashboard", { replace: true });
     } catch (error) {}
   };
 
