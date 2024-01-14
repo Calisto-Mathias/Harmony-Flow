@@ -6,6 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import axiosInstance from "../../../api/axios";
 import { useAuth } from "../../../hooks/useAuth";
+import Navbar from "../Navbar/Navbar";
 
 const EmployeeStatus = () => {
   const [flows, setFlows] = useState([]);
@@ -89,6 +90,7 @@ const EmployeeStatus = () => {
 
   return (
     <>
+      <Navbar></Navbar>
       {modal && (
         <div className="employeeModal">
           <div className="employeeModalContainer">
