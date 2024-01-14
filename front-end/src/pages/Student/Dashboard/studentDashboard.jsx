@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import axiosInstance from "../../../api/axios";
 import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
 const StudentDashboard = () => {
   const { auth, setAuth } = useAuth();
@@ -87,6 +88,7 @@ const StudentDashboard = () => {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };

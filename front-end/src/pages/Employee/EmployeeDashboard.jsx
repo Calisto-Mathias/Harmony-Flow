@@ -6,6 +6,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 import axiosInstance from "../../api/axios";
 import Navbar from "./Navbar/Navbar";
+import Footer from "./Footer/Footer";
 
 const EmployeeDashboard = () => {
   const { auth, setAuth } = useAuth();
@@ -70,6 +71,7 @@ const EmployeeDashboard = () => {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };

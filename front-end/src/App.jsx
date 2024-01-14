@@ -23,6 +23,7 @@ function App() {
     <div className="App">
       <Routes>
         {/* public routes */}
+        <Route path="/" element={<Login></Login>}></Route>
         <Route path="login" element={<Login></Login>}></Route>
         <Route
           path="unauthorized"

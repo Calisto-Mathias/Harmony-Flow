@@ -81,7 +81,11 @@ export const login = async (req, res) => {
       student.refreshToken = refreshToken;
       await student.save();
 
-      res.status(200).json({ accessToken, Role: "Student" });
+      res.status(200).json({
+        accessToken,
+        Role: "Student",
+        user: { ...student._doc, Password: "<hashed>" },
+      });
     } else {
       res.status(401).json({ message: "Invalid Credentials!" });
     }
@@ -122,12 +126,18 @@ export const login = async (req, res) => {
       employee.refreshToken = refreshToken;
       await employee.save();
 
+      delete employee.Password;
+
       res.cookie("jwt", refreshToken, {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
       });
 
-      res.status(200).json({ accessToken, Role: employee.Role });
+      res.status(200).json({
+        accessToken,
+        Role: employee.Role,
+        user: { ...employee._doc, Password: "<hashed>" },
+      });
     } else {
       // Invalid User Credentials Have Been Entered
       res.status(401).json({ message: "Invalid User Credentials!" });

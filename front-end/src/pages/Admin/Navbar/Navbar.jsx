@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className="adminNavbar">
+      <h1>Admin</h1>
       <ul>
         <Link to="/admin/dashboard" className="adminNavbarLinks">
           Dashboard

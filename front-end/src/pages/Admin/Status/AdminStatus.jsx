@@ -5,6 +5,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import axiosInstance from "../../../api/axios";
 import { roles } from "../../../context/roles";
 import Navbar from "../Navbar/Navbar";
+import Footer from "../../Employee/Footer/Footer";
 
 import "./AdminStatus.scss";
 
@@ -211,6 +212,7 @@ const AdminStatus = () => {
           </table>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };

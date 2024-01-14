@@ -5,11 +5,13 @@ import "./Login.scss";
 import { AuthContext } from "../../context/AuthContext";
 import axiosInstance from "../../api/axios";
 import { roles } from "../../context/roles";
+import { UserContext } from "../../context/RoleContext";
 
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Login = () => {
   const { auth, setAuth } = useContext(AuthContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [roll, setRoll] = useState("");
   const [password, setPassword] = useState("");
@@ -42,6 +44,7 @@ const Login = () => {
         accessToken: response?.data?.accessToken,
         Role: response?.data?.Role,
       });
+      setUser(response?.data?.user);
 
       navigate(
         response?.data?.Role === "Student"

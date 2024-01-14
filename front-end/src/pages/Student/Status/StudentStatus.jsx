@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import axiosInstance from "../../../api/axios";
 import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
 import "./StudentStatus.scss";
 
@@ -112,6 +113,7 @@ const StudentStatus = () => {
           </table>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };

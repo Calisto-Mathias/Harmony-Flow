@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axiosInstance from "../../../api/axios";
 import { AuthContext } from "../../../context/AuthContext";
 import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
 import "./StudentFlow.scss";
 
@@ -115,6 +116,7 @@ const StudentFlow = () => {
           </form>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };

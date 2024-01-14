@@ -6,6 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import axiosInstance from "../../api/axios";
 import Navbar from "./Navbar/Navbar";
+import Footer from "../Employee/Footer/Footer";
 
 const AdminDashboard = () => {
   const { auth, setAuth } = useAuth();
@@ -87,6 +88,7 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };

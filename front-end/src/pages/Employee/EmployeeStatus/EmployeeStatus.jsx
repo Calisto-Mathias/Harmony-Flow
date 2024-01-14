@@ -7,6 +7,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import axiosInstance from "../../../api/axios";
 import { useAuth } from "../../../hooks/useAuth";
 import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
 const EmployeeStatus = () => {
   const [flows, setFlows] = useState([]);
@@ -190,6 +191,7 @@ const EmployeeStatus = () => {
           </table>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };
