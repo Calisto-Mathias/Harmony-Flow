@@ -11,8 +11,10 @@ Harmony Flow is a full-stack application in its very early stages. It aims to so
 3. [Contributing]()
 4. [Installation Guide]()
 5. [Implemented Features]()
-6. [Documentation]()
-7. [References]()
+6. [Security Feature Considerations]()
+7. [Documentation]()
+8. [External Packages Used]()
+9. [References]()
 
 ## Demos
 
@@ -53,9 +55,74 @@ All contributions into Harmony Flow will be subject to the Code of Conduct.
 
 ## Installation Guide
 
+This application is relatively straight-forward to run and use on your own system. It consists of two major steps:
+
+- ### Creating the MongoDB Database Connection:
+
+In order to create and link up the MongoDB database, visit https://www.mongodb.com. Login through the online portal (once you have created your account).
+
+1. If you are a new User, create an organization before any of the following steps. After logging into your account, proceed with the creation of a deployment. Deploy it on a suitable service provider such as an AWS with the fastest or closest service based on location. Following this, create a username and password as shown on the MongoDB website. _Do remember this username and password as it will be needed for the next few steps_. Proceed with the next steps such as adding your local IP address to the whitelist. **_It must be noted that NITK may not allow requests to MongoDB even after the whitelisting due to internally placed firewalls. In this case, use a different mode of connecting to the internet._** You may use 0.0.0.0/0 in order to allow all IP Addresses to access the database as well.
+2. Click on the Database tab through the navigation menu. Click on connect. Navigate into the Drivers section. Select Node.JS and versions above 5.5 through the drop-down menus. Copy the connection string as it will come handy in the next step.
+
+- ### Creating the .env Configuration File
+
+1. Navigate into the `back-end` folder and create a `.env` file. In this file, add the line: `MONGO_URL="<MongoDB String copied from previous step>"`. Please ensure that you omit the angular brackets but keep the double quotation marks.
+2. Open up a terminal and run the following commands:
+   1. `node`
+   2. `require('crypto').randomBytes(64).toString('hex')`
+3. Copy the generated string (omitting the single quotation marks) and add the following line into a seperate line on the .env file - `JWT_ACCESS_SECRET="<copied string here>"`. Ensure to omit the angular brackets but keep the double quotation marks.
+4. Repeat Step 3 for creating another `JWT_REFRESH_SECRET` property in the `.env` file.
+5. Set a port number of your choice on a different line by adding `PORT=<Port Number>`. Do not include the angular brackets.
+
+- ### Installing All Required Packages
+
+1. Open a terminal in the cloned repository's folder.
+2. Navigate into the `back-end` through the command `cd back-end`
+3. Install all the back-end dependencies through the command `yarn install`
+4. Navigate out of the `back-end` folder and into the `front-end` folder through the command `cd ../front-end`
+5. Install all the front-end dependencies through the command `yarn install`
+
+- ### Running The Development Server:
+
+1. Open two seperate instances of a terminal in the cloned repository's folder.
+   - #### Terminal 1:
+     Run the following Commands in Order.
+     - `cd front-end`
+     - `yarn run dev`
+   - #### Terminal 2:
+     - `cd back-end`
+     - `yarn run serve`
+
+The application can be used and accessed through http://localhost:5173/ and all of its respective endpoints can now be accessed. By default, it loads the login page. Don't forget to register the users through the `/auth/register` endpoint. Refer to the below documentation on the end-point for further clarification.
+
 ## Implemented Features
 
 This section will be broken down based on the criticality of each feature. Each feature will have an implementation description as well as progress of implementation. This is due to the fact, that the back-end has been built much more than the front-end and some end-points are yet to be connected for even better use.
+
+### Short Summarization
+
+- Admin Role:
+  - Can Create Templates by giving them a Name and a **_variable list_** of Roles in the specific order of approval.
+  - Can Edit Existing Templates.
+  - Can Delete Existing Templates
+  - Can Also Register New users through the `/auth/register` end-point.
+- Student Role
+
+  - Can Create Approval Request Flows
+  - Can View the current Status of the Approval Flow as well as the current role that is yet to approve.
+  - Can also view the ID and comments of each approval step and the person responsible for approval/rejecting the request.
+  - Can view time of creation of request and time that it was last updated or processed.
+
+- Employee Role (All Users of any specific role other than Student and Admin)
+  - Can View only the request flows that are currently requiring their approval.
+  - Can add comments while approving/rejecting the Approval Request Flow.
+  - Can view details about the request such as the ID of the preceding approvers as well as the UserID of the Student who raised the flow.
+- Authentication and Authorisation:
+  - Every user is required to be logged in before being able to use the application.
+  - There is user-specific dashboards for the three broad categories listed above.
+  - End-Point manipulation cannot be done as React-Router-DOM has been implemented which prevents this. Middleware has also been implemented in the back-end in order to enforce authorisation steps.
+
+### In-Depth Explanation of Features Implemented
 
 1. **Authentication/Authorization:**
    - Authentication and Authorization has been implemented through the use of JWT Access Tokens and Refresh Tokens.
@@ -82,6 +149,13 @@ This section will be broken down based on the criticality of each feature. Each 
    - Registration has also been implemented solely on the back-end through the `/auth/register` endpoint. This is done for the reason that the login credentials are usually providedt to the end-user (employee or student) by the administration on registration with the college. Due to this, it shouldn't be available to the end-user to be able to freely register on the platform. Using the given end-point, an admin will be able to register any user as needed.
 
 **_To summarise, apart from sending back flows to the student in order to create edits on to the flows, every other feature spec (mandatory + bonus) has been implemented keeping in mind that no malicious use of the application such as tampering requests will be made during the scope of usage. This will soon be resolved in future versions of the application_**
+
+## Security Feature Considerations
+
+It goes without saying that in a collegiate-level application concerned with providing digitization of procedures, secure transmission of data is of paramount importance. For that very reason, a few steps have been taken in order to obscure the information that is sent about the server that runs the back-end. These are:
+
+- The `helmet` package is used in order to add HTTP security headers to the outgoing responses from the server
+- Live reload of the page has been disabled as it is assumed that for every login, the pages cannot be refreshed in any way as the requests that are being sent out can be seen using developer tools.
 
 ## Documentation
 
@@ -123,6 +197,14 @@ The API endpoints can be broadly classified into 4 major categories. All of thes
       2. **Front-End Implementation:** As stated multiple times before, malicious intent has not been assumed for this project as of now. This is merely a safeguard that can easily be integrated into a front end application through the use of interceptors.
    4. `/auth/logout` is used to perform a simple logout of the user from the application. As JWT based authentication has been used, the logout function is relatively very simple as we can simply just set the refresh Token in the database to a null value while simultaneously clearing the context state in the ReactJS front-end that stores the access Token. In this way, the end-user cannot generate any other refresh tokens without going through the login page, hence achieving the logout functionality :)
 
+## External Packages Used
+
+In order to bring about some standard functionalities in the back-end and front-end of the application, certain pre-built packages have been used to bring about speedy development. These include:
+
+- Morgan: Morgan is a logging software that monitors requests and responses received and sent by the back-end server. It also contains useful information such as the status codes that were sent out as well as the byte-size of the response.
+- Helmet: Helmet is used to secure HTTP responses sent out by the back-end.
+- Cors: The cors package is used in order to enable Cross-Origin Resource Requests in order to allow the front-end and the back-end to interact.
+
 ## References
 
 MongoDB and Mongoose: https://mongoosejs.com
@@ -133,4 +215,12 @@ React.JS: https://react.dev
 
 Node.JS: https://nodejs.org/en/guides
 
-JWT: https://jwt.io
+Json Web Token: https://jwt.io
+
+Helmet: https://www.npmjs.com/package/helmet
+
+Morgan: https://www.npmjs.com/package/morgan
+
+Cors: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+
+HTTP: https://developer.mozilla.org/en-US/docs/Web/HTTP
