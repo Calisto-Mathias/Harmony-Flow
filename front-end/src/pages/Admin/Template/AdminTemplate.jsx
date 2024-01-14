@@ -34,6 +34,9 @@ const AdminTemplate = () => {
           },
         }
       );
+      setName("");
+      setParticipants("");
+      setNumber(0);
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -47,6 +50,10 @@ const AdminTemplate = () => {
         <div className="adminTemplateContainer">
           <h1 className="adminTemplateContainerHeading">Create a Template!</h1>
           <p className="description">Create a list of roles:</p>
+          <p>
+            Note: You do not need to need to add the inital role of the student
+            as that is already implied!
+          </p>
           <form action="" className="adminTemplateContainerForm">
             <label htmlFor="adminTemplateContainerName">Name of Template</label>
             <input

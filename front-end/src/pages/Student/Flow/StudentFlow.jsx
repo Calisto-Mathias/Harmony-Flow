@@ -29,7 +29,10 @@ const StudentFlow = () => {
         },
       }
     );
+
     setAuth({ ...auth, updates: auth.updates + 1 });
+    setRequest("");
+    setOption("");
     console.log(response);
   };
 
