@@ -21,8 +21,7 @@ Harmony Flow is a full-stack application in its very early stages. It aims to so
 
 ### Cross-User Demo
 
-https://github.com/Calisto-Mathias/IRIS_Rec23_231IT015_MERN/assets/63557880/1d63cf62-62b1-401e-b320-2a932f52e94e
-
+https://github.com/Calisto-Mathias/IRIS_Rec23_231IT015_MERN/assets/63557880/f7b8d437-adb3-4548-9b40-60d922591328
 
 ### Student Demo
 
