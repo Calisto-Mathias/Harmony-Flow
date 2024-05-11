@@ -17,6 +17,11 @@ const StudentFlow = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!request)
+      {
+          alert("Please enter a request");
+                      return;
+           }
     console.log(JSON.stringify({ TemplateID: option, Request: request }));
     const response = await axiosInstance.post(
       "/student/create",

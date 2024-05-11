@@ -23,6 +23,11 @@ const AdminTemplate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!name)
+      {
+          alert("Please enter a request");
+                      return;
+           }
     try {
       console.log(JSON.stringify({ Name: name, Approval_Flow: participants }));
       const response = await axiosInstance.post(
